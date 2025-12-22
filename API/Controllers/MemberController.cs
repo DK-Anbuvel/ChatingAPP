@@ -10,7 +10,7 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult<List<AppUser>> GetMembers()
         {
-            context.
+            //context.
             return Ok(new[] { "Member1", "Member2", "Member3" });
         }
     }

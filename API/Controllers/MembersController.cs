@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MemberController(AppDbContext context) : ControllerBase
+    public class MembersController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<List<AppUser>>> GetMembers()
