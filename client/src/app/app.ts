@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { lastValueFrom, single } from 'rxjs';
-
+import {Nav} from '../layout/nav/nav';
+import {AccountService} from '../core/services/account-service';
+import {Home} from '../Features/home/home';
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [Nav,Home],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
+  private accountService = inject(AccountService);
   private http = inject(HttpClient); // Inject HttpClient service for modern days
   protected readonly title = 'Chatting App';
   protected members = signal<any>([]);//  used for state management ,  change detection
@@ -27,6 +30,13 @@ export class App implements OnInit {
   // }
    async ngOnInit() {
      this.members.set(await this.getMembers());
+    this.setCurrentUser();
+   }
+   setCurrentUser(){
+    const userString = localStorage.getItem('user');
+    if(!userString) return;
+    const user = JSON.parse(userString);
+    this.accountService.currentUser.set(user);
    }
   async getMembers(){
     try{

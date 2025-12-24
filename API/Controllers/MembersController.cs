@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers
 {
 
-   [Authorize]
+   
     public class MembersController(AppDbContext context) : BaseAPIController
     {
         [HttpGet]
@@ -17,7 +17,7 @@ namespace API.Controllers
             var members = await context.Users.ToListAsync();
             return Ok(members);
         }  
-        [AllowAnonymous] 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetMembers(string id)
         {
