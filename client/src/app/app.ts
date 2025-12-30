@@ -4,6 +4,7 @@ import { lastValueFrom, single } from 'rxjs';
 import {Nav} from '../layout/nav/nav';
 import {AccountService} from '../core/services/account-service';
 import {Home} from '../Features/home/home';
+import { User } from '../../types/user';
 @Component({
   selector: 'app-root',
   imports: [Nav,Home],
@@ -14,7 +15,7 @@ export class App implements OnInit {
   private accountService = inject(AccountService);
   private http = inject(HttpClient); // Inject HttpClient service for modern days
   protected readonly title = 'Chatting App';
-  protected members = signal<any>([]);//  used for state management ,  change detection
+  protected members = signal<User[]>([]);//  used for state management ,  change detection
 
   //constructor(private http:HttpClient) {}
   // ngOnInit(): void {
@@ -40,7 +41,7 @@ export class App implements OnInit {
    }
   async getMembers(){
     try{
-      return lastValueFrom(this.http.get('https://localhost:5001/api/members'));
+      return lastValueFrom(this.http.get<User[]>('https://localhost:5001/api/members'));
     }catch(error){
       console.log(error);
       throw error;
