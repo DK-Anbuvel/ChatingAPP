@@ -1,6 +1,16 @@
 
 <app-nav/>
-<app-home [membersFromApp]="members()"/>
+
+<div 
+[class.mt-24]="router.url !== '/'"
+[class.container]="router.url !== '/'"
+[class.mx-auto]="router.url !== '/'">
+
+<!-- [ngClass]="{'mt-24 container mx-auto': !(router.url ==='/')}" -->
+    <router-outlet/>
+</div>
+
+<!-- <app-home [membersFromApp]="members()"/> -->
 <!-- <div class="card bg-base-100 w-1/2 mx-auto p-10 mt-24 shadow-xl">
 
     <h2 class="text-3xl font-serif">{{title}}</h2>

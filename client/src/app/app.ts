@@ -5,14 +5,18 @@ import {Nav} from '../layout/nav/nav';
 import {AccountService} from '../core/services/account-service';
 import {Home} from '../Features/home/home';
 import { User } from '../../types/user';
+import { Router, RouterOutlet } from '@angular/router';
+import { NgClass } from '@angular/common';
+
 @Component({
   selector: 'app-root',
-  imports: [Nav,Home],
+  imports: [Nav,RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
   private accountService = inject(AccountService);
+  protected router = inject(Router);
   private http = inject(HttpClient); // Inject HttpClient service for modern days
   protected readonly title = 'Chatting App';
   protected members = signal<User[]>([]);//  used for state management ,  change detection
