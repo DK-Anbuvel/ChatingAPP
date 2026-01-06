@@ -14,12 +14,12 @@ import { NgClass } from '@angular/common';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-  private accountService = inject(AccountService);
+export class App  {
+  //private accountService = inject(AccountService);
   protected router = inject(Router);
-  private http = inject(HttpClient); // Inject HttpClient service for modern days
-  protected readonly title = 'Chatting App';
-  protected members = signal<User[]>([]);//  used for state management ,  change detection
+  // private http = inject(HttpClient); // Inject HttpClient service for modern days
+  // protected readonly title = 'Chatting App';
+  // protected members = signal<User[]>([]);//  used for state management ,  change detection
 
   //constructor(private http:HttpClient) {}
   // ngOnInit(): void {
@@ -33,22 +33,22 @@ export class App implements OnInit {
   //     },complete:()=>console.log('Request Completed')
   //   })
   // }
-   async ngOnInit() {
-     this.members.set(await this.getMembers());
-    this.setCurrentUser();
-   }
-   setCurrentUser(){
-    const userString = localStorage.getItem('user');
-    if(!userString) return;
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
-   }
-  async getMembers(){
-    try{
-      return lastValueFrom(this.http.get<User[]>('https://localhost:5001/api/members'));
-    }catch(error){
-      console.log(error);
-      throw error;
-    }
-  }
+  //  async ngOnInit() {
+  //    this.members.set(await this.getMembers());
+  //  // this.setCurrentUser();
+  //  }
+  //  setCurrentUser(){
+  //   const userString = localStorage.getItem('user');
+  //   if(!userString) return;
+  //   const user = JSON.parse(userString);
+  //  // this.accountService.currentUser.set(user);
+  //  }
+  // async getMembers(){
+  //   try{
+  //     return lastValueFrom(this.http.get<User[]>('https://localhost:5001/api/members'));
+  //   }catch(error){
+  //     console.log(error);
+  //     throw error;
+  //   }
+  // }
 }
