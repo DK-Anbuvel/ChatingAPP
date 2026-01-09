@@ -1,6 +1,7 @@
 using System.Text;
 using API.Data;
 using API.Interfaces;
+using API.Middlwares;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,8 @@ var app = builder.Build();
 
 //app.UseHttpsRedirection();
 
-
+//app.UseDeveloperExceptionPage(); // default exception page
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(s=>s.AllowAnyHeader().AllowAnyMethod()
 .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 app.UseAuthentication();
