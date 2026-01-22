@@ -17,7 +17,7 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
 
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto dto)
-    {
+    { 
         if (await EmailExists(dto.Email)) return BadRequest("Email Is Exists");
 
         using var hmac = new HMACSHA512(); //using for dispose the memeory

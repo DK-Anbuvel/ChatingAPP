@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //builder.Services.AddOpenApi(); // auto-generated OpenAPI documentation
 
 builder.Services.AddCors();
+builder.Services.AddScoped<IMemberRepository,MemberRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
  .AddJwtBearer(option => 
@@ -49,4 +50,18 @@ app.UseCors(s=>s.AllowAnyHeader().AllowAnyMethod()
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+using var scope = app.Services.CreateScope(); // if db not exist directly create the db structure and seed the mock data.
+var services =scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<AppDbContext>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedUsers(context);
+}catch(Exception ex)
+{
+    var logger = services.GetRequiredService<Logger<Program>>();
+ logger.LogError(ex,"An error occured during migration");
+}
+
 app.Run();

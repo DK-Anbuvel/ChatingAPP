@@ -3,9 +3,7 @@
 <div class="card-body w-full">
     <form #registerForm="ngForm" class="flex flex-col gap-4 w-full" (ngSubmit)="register()">
         <input class="input w-full" name="email"
-          [(
-            
-          )]="creds.email" placeholder="Email">
+          [(ngModel)]="creds.email" placeholder="Email">
            <input class="input w-full" name="displayName"
           [(ngModel)]="creds.displayName" placeholder="display Name">
            <input class="input w-full" name="password"
