@@ -14,6 +14,7 @@ export class Nav {
   private router =inject(Router);
   private toast = inject(ToastService);
   protected creds: any = {};
+User: any;
   
   login() {
     console.log(this.creds);

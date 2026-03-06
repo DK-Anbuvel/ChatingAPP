@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { LoginCreds, RegisterCreds, User } from '../../../types/user';
 import { TitleCasePipe } from '@angular/common';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({ //singalten application.
   providedIn: 'root',
@@ -11,7 +12,8 @@ export class AccountService {
 
   private http = inject(HttpClient);
   currentUser = signal<User | null>(null);
-  baseUrl = 'https://localhost:5001/api/';
+    private baseUrl =environment.apiUrl;
+ 
  
    register(creds:RegisterCreds){
     return this.http.post<User>(this.baseUrl+'Account/register',creds).pipe(
