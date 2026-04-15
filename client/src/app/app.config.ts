@@ -6,13 +6,14 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { InitService } from '../core/services/init-service';
 import { lastValueFrom } from 'rxjs';
 import { errorInterceptor } from '../core/interceptor/error-interceptor';
+import { jwtInterceptor } from '../core/interceptor/jwt-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(), // it now not monitoring the changes in the DOM automatically
     provideRouter(routes,withViewTransitions()),
-    provideHttpClient(withInterceptors([errorInterceptor])) , // HttpClient provider
+    provideHttpClient(withInterceptors([errorInterceptor,jwtInterceptor])) , // HttpClient provider
     provideAppInitializer(async()=> {
       const initService = inject(InitService);
       return new Promise<void>((resolve)=>{
