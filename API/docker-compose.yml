@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17.0
+    container_name: eshopsupport-postgres-dgtyvfra
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ChatApp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev
+
+    ports:
+      - "49464:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
